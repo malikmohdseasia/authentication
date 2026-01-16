@@ -7,12 +7,12 @@ export const useAuthStore = create((set) => ({
     isLoading: false,
     isError: null,
 
-    login: async () => {
+    login: async (email, password) => {
         set({ isLoading: true, isError: null });
 
         const user = {
-            "username": "hopkins",
-            "password": "William56$hj",
+            "username": email,
+            "password": password,
         };
 
         try {

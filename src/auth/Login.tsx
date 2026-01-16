@@ -53,11 +53,11 @@ const Login = () => {
     }));
   };
 
-  const isFormValid =
-    !errors.email &&
-    !errors.password &&
-    email &&
-    password;
+  // const isFormValid =
+  //   !errors.email &&
+  //   !errors.password &&
+  //   email &&
+  //   password;
 
 
 
@@ -66,13 +66,12 @@ const Login = () => {
   const loginHandle = async () => {
 
     await login(email, password);
-    console.log('success!')
   }
 
   return (
     <div className="h-screen overflow-hidden overflow-y-hidden">
-      <div className="flex flex-col lg:flex-row ">
-        <div className="w-full lg:w-[50%] flex items-center justify-center mt-15">
+      <div className="flex mt-15 flex-col lg:flex-row ">
+        <div className="w-full lg:w-[50%] flex items-center justify-center">
 
           <div className="">
             <h1 className="font-semibold text-[30px] text-[#171725] font-poppins mb-10 text-center lg:text-start">Log In</h1>
@@ -86,9 +85,9 @@ const Login = () => {
                   className="w-full outline-none px-2 placeholder:text:-[#969AB8] font-poppins" placeholder="Your email" />
 
               </div>
-              {errors.email && (
+              {/* {errors.email && (
                 <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-              )}
+              )} */}
 
               <div className="mt-4 border border-[#E0E2E9]  w-[90%] mx-auto lg:w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg ">
                 {KeyIcon}
@@ -98,18 +97,17 @@ const Login = () => {
                   className="w-full outline-none px-2 placeholder:text:-[#969AB8] font-poppins" placeholder="Password" />
 
               </div>
-              {errors.password && (
+              {/* {errors.password && (
                 <p className="text-red-500 text-xs mt-1">{errors.password}</p>
-              )}
+              )} */}
             </div>
             <div className="w-[90%] mx-auto lg:w-100.75">
 
               <button className={`w-full px-3 h-11.25 text-[#FFFFFF] cursor-pointer font-poppins font-semibold rounded-md mt-6 text-[15px]
-                ${isFormValid
-                  ? 'bg-[#0062FF] cursor-pointer'
-                  : 'bg-gray-400 cursor-not-allowed'}
+                bg-[#0062FF]
+                  
               `}
-                disabled={!isFormValid}
+              
                 onClick={loginHandle}
               >Log In</button>
             </div>

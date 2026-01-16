@@ -77,14 +77,14 @@ const SignUp = () => {
   };
 
   return (
-    <div className="border-2 h-screen overflow-hidden overflow-y-hidden">
-      <div className="border flex flex-row-reverse">
-        <div className="w-[50%] flex items-center justify-center ">
+    <div className="h-screen overflow-hidden overflow-y-hidden">
+      <div className=" mt-15 flex flex-col  lg:flex-row-reverse">
+        <div className="w-full lg:w-[50%] flex items-center justify-center ">
           <div className="">
-            <h1 className="font-semibold text-[30px] text-[#171725] font-poppins mb-10">Sign Up</h1>
+            <h1 className="font-semibold text-[30px] text-[#171725] font-poppins mb-10 lg:text-start text-center">Sign Up</h1>
 
             <div>
-              <div className="border border-[#E0E2E9] w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
+              <div className="border border-[#E0E2E9] w-[90%] mx-auto lg:w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
                 {EmailIcon}
                 <input
                   type="email"
@@ -96,7 +96,7 @@ const SignUp = () => {
               </div>
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
 
-              <div className="mt-4 border border-[#E0E2E9] w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
+              <div className="mt-4 border border-[#E0E2E9] w-[90%]  mx-auto lg:w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
                 {KeyIcon}
                 <input
                   type="password"
@@ -108,7 +108,7 @@ const SignUp = () => {
               </div>
               {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
 
-              <div className="mt-4 border border-[#E0E2E9] w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
+              <div className="mt-4 border border-[#E0E2E9]  w-[90%]  mx-auto lg:w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
                 {KeyIcon}
                 <input
                   type="password"
@@ -121,15 +121,18 @@ const SignUp = () => {
               {errors.repeatPassword && <p className="text-red-500 text-xs mt-1">{errors.repeatPassword}</p>}
             </div>
 
+            <div className="w-[90%] lg:w-full mx-auto">
+
             <button
               disabled={!isFormValid}
               onClick={signupHandle}
-              className={`w-full bg-[#0062FF] px-3 h-11.25 text-white cursor-pointer font-poppins font-semibold rounded-md mt-6 text-[15px] ${
+              className={` w-full bg-[#0062FF]  px-3 h-11.25 text-white cursor-pointer font-poppins font-semibold rounded-md mt-6 text-[15px] ${
                 !isFormValid ? "bg-gray-400 cursor-not-allowed" : ""
               }`}
             >
               Sign Up
             </button>
+            </div>
 
             <div className="flex items-center justify-between mt-[42.5px]">
               <hr className="text-[#E4E6EC] w-[45%]" />
@@ -137,18 +140,18 @@ const SignUp = () => {
               <hr className="text-[#E4E6EC] w-[45%]" />
             </div>
 
-            <div className="flex items-center gap-5 mt-5">
-              <div className="cursor-pointer w-47.5 h-11.25 border border-[#E0E2E9] rounded-md flex items-center justify-center gap-3.75">
+            <div className="flex items-center justify-center gap-5 mt-5">
+              <div className="cursor-pointer w-[40%]  lg:w-47.5 h-11.25 border border-[#E0E2E9] rounded-md flex items-center justify-center gap-3.75">
                 {googleIcon}
                 <h1 className="font-poppins font-semibold text-[14px]">Google</h1>
               </div>
-              <div className="cursor-pointer w-47.5 h-11.25 border border-[#E0E2E9] rounded-md flex items-center justify-center gap-3.75">
+              <div className="cursor-pointer w-[40%] lg:w-47.5 h-11.25 border border-[#E0E2E9] rounded-md flex items-center justify-center gap-3.75">
                 {FBIcon}
                 <h1 className="font-poppins font-semibold text-[14px]">Facebook</h1>
               </div>
             </div>
 
-            <h1 className="mt-10 font-poppins text-[15px] text-[#969AB8]">
+            <h1 className="mt-10 font-poppins text-[15px] text-[#969AB8] text-center lg:text-start">
               Already have an account?
               <span className="text-[15px] font-poppins font-semibold text-[#0062FF] cursor-pointer">
                 {" "}
@@ -158,7 +161,7 @@ const SignUp = () => {
           </div>
         </div>
 
-        <div className="w-[60%] h-screen flex justify-end relative">
+        <div className="w-[60%] h-screen lg:flex justify-end relative hidden">
           <div className="absolute pt-18 px-24.25">
             <h1 className="font-poppins leading-11 text-[26px] text-[#3A424A]">
               The only way to <span className="text-[#3062D4] font-semibold"> do great work </span> is to{" "}

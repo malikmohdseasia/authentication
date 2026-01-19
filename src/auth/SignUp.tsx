@@ -3,9 +3,15 @@ import { EmailIcon, FBIcon, googleIcon, KeyIcon } from "../assets/Icons";
 import IMG1 from "../assets/signup.jpg";
 import { useState } from "react";
 import { useAuthStore } from "../store/authStore";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 
 const SignUp = () => {
-  const signup = useAuthStore((state:any) => state.signup);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+
+  const signup = useAuthStore((state: any) => state.signup);
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,14 +23,14 @@ const SignUp = () => {
     repeatPassword: "",
   });
 
-  const validateEmail = (value:any) => {
+  const validateEmail = (value: any) => {
     if (!value.trim()) return "Email is required";
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(value)) return "Invalid email format";
     return "";
   };
 
-  const validatePassword = (value:any) => {
+  const validatePassword = (value: any) => {
     if (!value.trim()) return "Password is required";
     const passRegex = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
     if (!passRegex.test(value))
@@ -32,29 +38,33 @@ const SignUp = () => {
     return "";
   };
 
-  const validateRepeatPassword = (value:any) => {
+  const validateRepeatPassword = (value: any) => {
     if (!value.trim()) return "Please repeat password";
     if (value !== password) return "Passwords do not match";
     return "";
   };
 
-  const handleEmailChange = (e:any) => {
+  const handleEmailChange = (e: any) => {
     const value = e.target.value;
     setEmail(value);
     setErrors((prev) => ({ ...prev, email: validateEmail(value) }));
   };
 
-  const handlePasswordChange = (e:any) => {
+  const handlePasswordChange = (e: any) => {
     const value = e.target.value;
     setPassword(value);
+
     setErrors((prev) => ({
       ...prev,
       password: validatePassword(value),
-      repeatPassword: validateRepeatPassword(repeatPassword),
+      repeatPassword: repeatPassword
+        ? validateRepeatPassword(repeatPassword)
+        : "",
     }));
   };
 
-  const handleRepeatPasswordChange = (e:any) => {
+
+  const handleRepeatPasswordChange = (e: any) => {
     const value = e.target.value;
     setRepeatPassword(value);
     setErrors((prev) => ({
@@ -78,7 +88,7 @@ const SignUp = () => {
 
   return (
     <div className="h-screen overflow-hidden overflow-y-hidden">
-      <div className=" mt-15 flex flex-col  lg:flex-row-reverse">
+      <div className="mt-15 lg:mt-0 flex flex-col  lg:flex-row-reverse">
         <div className="w-full lg:w-[50%] flex items-center justify-center ">
           <div className="">
             <h1 className="font-semibold text-[30px] text-[#171725] font-poppins mb-10 lg:text-start text-center">Sign Up</h1>
@@ -96,42 +106,59 @@ const SignUp = () => {
               </div>
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
 
-              <div className="mt-4 border border-[#E0E2E9] w-[90%]  mx-auto lg:w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
+              <div className="mt-4 border border-[#E0E2E9] w-[90%] mx-auto lg:w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
                 {KeyIcon}
+
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={handlePasswordChange}
                   className="w-full outline-none px-2 font-poppins"
                   placeholder="Password"
                 />
+
+                <span
+                  className="cursor-pointer text-gray-500"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
               </div>
+
               {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
 
-              <div className="mt-4 border border-[#E0E2E9]  w-[90%]  mx-auto lg:w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
+              <div className="mt-4 border border-[#E0E2E9] w-[90%] mx-auto lg:w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
                 {KeyIcon}
+
                 <input
-                  type="password"
+                  type={showRepeatPassword ? "text" : "password"}
                   value={repeatPassword}
                   onChange={handleRepeatPasswordChange}
                   className="w-full outline-none px-2 font-poppins"
                   placeholder="Repeat Password"
                 />
+
+                <span
+                  className="cursor-pointer text-gray-500"
+                  onClick={() => setShowRepeatPassword((prev) => !prev)}
+                >
+                  {showRepeatPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
               </div>
+
               {errors.repeatPassword && <p className="text-red-500 text-xs mt-1">{errors.repeatPassword}</p>}
             </div>
 
             <div className="w-[90%] lg:w-full mx-auto">
 
-            <button
-              disabled={!isFormValid}
-              onClick={signupHandle}
-              className={` w-full bg-[#0062FF]  px-3 h-11.25 text-white cursor-pointer font-poppins font-semibold rounded-md mt-6 text-[15px] ${
-                !isFormValid ? "bg-gray-400 cursor-not-allowed" : ""
-              }`}
-            >
-              Sign Up
-            </button>
+              <button
+                disabled={!isFormValid}
+                onClick={signupHandle}
+                className={` w-full bg-[#0062FF]  px-3 h-11.25 text-white cursor-pointer font-poppins font-semibold rounded-md mt-6 text-[15px] ${!isFormValid ? "bg-gray-400 cursor-not-allowed" : ""
+                  }`}
+              >
+                Sign Up
+              </button>
             </div>
 
             <div className="flex items-center justify-between mt-[42.5px]">

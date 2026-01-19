@@ -7,7 +7,7 @@ export const useAuthStore = create((set) => ({
     isLoading: false,
     isError: null,
 
-    login: async (email, password) => {
+    login: async (email:any, password:any) => {
         set({ isLoading: true, isError: null });
 
         const user = {
@@ -19,8 +19,9 @@ export const useAuthStore = create((set) => ({
             await axios.post("https://fakestoreapi.com/auth/login", user);
             set({ user, isLoading: false });
             toast.success("Successfully Login!", { position: "top-center" });
-        } catch (error) {
+        } catch (error:any) {
             set({ isError: error.message, isLoading: false });
+            toast.error("Login failed!", { position: "top-center" });
         }
     },
 
@@ -33,7 +34,7 @@ export const useAuthStore = create((set) => ({
             const res = await axios.post("https://fakestoreapi.com/users", user);
             set({ user: res.data, isLoading: false });
             toast.success("Successfully Signed Up!", { position: "top-center" });
-        } catch (error) {
+        } catch (error:any) {
             set({ isError: error.message, isLoading: false });
             toast.error("Signup failed!", { position: "top-center" });
         }

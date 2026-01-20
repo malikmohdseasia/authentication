@@ -1,16 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EmailIcon, FBIcon, googleIcon, KeyIcon } from "../assets/Icons";
 import IMG1 from "../assets/signup.jpg";
 import { useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+// import { useDispatch } from "react-redux";
+// import { signupUser } from "../store/authSlice";
+// import { toast } from "react-toastify";
 
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+  const navigate = useNavigate();
 
   const signup = useAuthStore((state: any) => state.signup);
+
+  // const dispatch = useDispatch();
 
 
   const [email, setEmail] = useState("");
@@ -84,6 +90,16 @@ const SignUp = () => {
   const signupHandle = async () => {
     if (!isFormValid) return;
     await signup(email, password);
+
+    // dispatch(
+    //   signupUser({
+    //     email,
+    //     password,
+    //     repeatPassword,
+    //   })
+    // );
+    navigate('/')
+
   };
 
   return (
@@ -193,11 +209,11 @@ const SignUp = () => {
             <h1 className="font-poppins leading-11 text-[26px] text-[#3A424A]">
               The only way to <span className="text-[#3062D4] font-semibold"> do great work </span> is to{" "}
               <span className="text-[#3062D4] font-semibold">love what you do.</span>
-              <h1 className="text-end text-[24px] font-poppins font-medium text-[#3A424A]"> - Steve Jobs </h1>
             </h1>
+              <h1 className="text-end text-[24px] font-poppins font-medium text-[#3A424A]"> - Steve Jobs </h1>
           </div>
 
-          <img src={IMG1} alt="" className="object-center h-screen" />
+          <img src={IMG1} alt="" className="object-center h-screen w-full" />
         </div>
       </div>
     </div>

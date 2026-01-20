@@ -1,30 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EmailIcon, FBIcon, googleIcon, KeyIcon } from "../assets/Icons";
 import IMG1 from "../assets/login.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+// import { useDispatch, useSelector } from "react-redux";
+// import { loginUser } from "../store/authSlice";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
    const [showPassword, setShowPassword] = useState(false);
+  //  const {loading, error, isAuthenticated} = useSelector((state:any)=>state.auth);
+  //  const dispatch = useDispatch();
+   const navigate = useNavigate();
 
   const [errors, setErrors] = useState({
     email: "",
     password: "",
   });
 
-  const login = useAuthStore((state: any) => state.login);
+  const {login,isAuthenticated }:any = useAuthStore();
 
-  const validateEmail = (value: string) => {
-    if (!value.trim()) return "Email is required";
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) return "Invalid email format";
-
-    return "";
-  };
 
   const validatePassword = (value: string) => {
     if (!value.trim()) return "Password is required";
@@ -33,15 +31,7 @@ const Login = () => {
     return "";
   };
 
-  const handleEmailChange = (e: any) => {
-    const value = e.target.value;
-    setEmail(value);
-
-    setErrors((prev) => ({
-      ...prev,
-      email: validateEmail(value),
-    }));
-  };
+ 
 
   const handlePasswordChange = (e: any) => {
     const value = e.target.value;
@@ -71,7 +61,19 @@ const Login = () => {
     // if (emailError || passwordError) return;
 
     await login(email, password);
+
+    // dispatch(loginUser({ email, password }));
   };
+
+  useEffect(() => {
+  if (isAuthenticated) {
+    toast.success("Successfully Login!", {position:'top-center'});
+    navigate("/products");
+  }
+}, [isAuthenticated, navigate]);
+
+
+
 
   return (
     <div className="h-screen overflow-hidden">
@@ -85,11 +87,11 @@ const Login = () => {
             <div className="border border-[#E0E2E9] w-[90%] mx-auto lg:w-100.75 flex items-center px-3.5 py-3.5 h-11.25 rounded-lg">
               {EmailIcon}
               <input
-                type="email"
+                type="text"
                 value={email}
-                onChange={handleEmailChange}
+                onChange={(e)=>setEmail(e.target.value)}
                 className="w-full outline-none px-2 font-poppins"
-                placeholder="Your email"
+                placeholder="User name"
               />
             </div>
             {errors.email && (
@@ -142,14 +144,14 @@ const Login = () => {
             </div>
 
             <div className="flex items-center gap-5 mt-5">
-              <div className="cursor-pointer w-47.5 h-11.25 border rounded-md flex items-center justify-center gap-3.75">
+              <div className="cursor-pointer border-[#E0E2E9]  w-47.5 h-11.25 border rounded-md flex items-center justify-center gap-3.75">
                 {googleIcon}
                 <h1 className="font-poppins font-semibold text-[14px]">
                   Google
                 </h1>
               </div>
 
-              <div className="cursor-pointer w-47.5 h-11.25 border rounded-md flex items-center justify-center gap-3.75">
+              <div className="cursor-pointer border-[#E0E2E9] w-47.5 h-11.25 border rounded-md flex items-center justify-center gap-3.75">
                 {FBIcon}
                 <h1 className="font-poppins font-semibold text-[14px]">
                   Facebook
@@ -172,7 +174,7 @@ const Login = () => {
         <div className="w-[60%] h-screen lg:flex justify-end relative hidden">
           <div className="absolute pt-31.25 px-24.25">
             <h1 className="font-poppins leading-11 text-[26px] text-[#3A424A]">
-              The future belongs to those who{" "}
+              The future belongs to those who <br />
               <span className="text-[#3062D4] font-semibold">
                 believe
               </span>{" "}
@@ -186,7 +188,7 @@ const Login = () => {
             </h1>
           </div>
 
-          <img src={IMG1} alt="" className="object-center h-screen" />
+          <img src={IMG1} alt="" className="object-center w-full h-screen" />
         </div>
       </div>
     </div>
